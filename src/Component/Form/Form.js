@@ -11,11 +11,20 @@ function Form() {
           id="standard-basic"
           label="Employee id"
           variant="standard"
-          class="textfield"
+          sx={{
+            width: 300,
+          }}
         />
       </div>
       <div>
-        <TextField id="standard-basic" label="Message" variant="standard" />
+        <TextField
+          id="standard-basic"
+          label="Message"
+          variant="standard"
+          sx={{
+            width: 300,
+          }}
+        />
       </div>
       <div class="btn">
         <Button variant="contained">Submit</Button>
