@@ -1,0 +1,8 @@
+fileignoreconfig:
+- filename: package-lock.json
+  checksum: 408fe71b557abec4cb13777d36c47a9bf9a16bee4cfa3e46cd83d6fb39942fa2
+- filename: src/Component/Form/Form.js
+  checksum: bdefd6ab57e3aa9e5dee5a97acd5c208d4558a3cef8496c32d5dbef7482bc64a
+- filename: .env
+  checksum: b404316e0ad7ddf284808848538ee43aa54d471a7e4d432191cf08ef67eeef23
+version: ""
