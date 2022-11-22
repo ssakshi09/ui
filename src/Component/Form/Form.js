@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./Form.css";
-// require('dotenv-webpack').config();
 
 function Form() {
   const [id, setId] = useState([]);
   const [msg, setMsg] = useState("");
+  const [idError, setIdError] = useState(null);
+  const [msgError, setMsgError] = useState(null);
   
   const requestBody = {
     employees: id,
@@ -22,13 +23,37 @@ function Form() {
     };
     fetch(process.env.REACT_APP_PIA_URL, requestOptions);
   }
+
+  function isValidEmployeeId(employeeId) {
+    return /^[-,0-9 ]+$/.test(employeeId);
+  }
+
   function handleID (e){
-    const employeeIdsArray = e.target.value.split(',')
-    setId(employeeIdsArray);
+    setIdError(null);
+    if(e.target.value===""){
+      setIdError('Please enter Employee ID')
+    }
+    else if (!isValidEmployeeId(e.target.value)) {
+      setIdError('Employee ID is invalid');
+    }
+    if(idError===null){
+      const employeeIdsArray = e.target.value.split(',')
+      setId(employeeIdsArray);
+    }
   }
+
   function handleMsg (e){
-    setMsg(e.target.value);
+    if(e.target.value===""){
+      setMsgError('Please enter a message');
+    }
+    else{
+      setMsgError(null);
+    }
+    if(msgError===null){
+      setMsg(e.target.value);
+    }
   }
+
   return (
     <div className="textCenter">
       <form onSubmit={handleSubmit} >
@@ -36,28 +61,35 @@ function Form() {
         <TextField
           id="standard-basic"
           label="Employee id"
-          variant="standard"
+          variant="outlined"
           required
+          multiline
+          rows={4}
           sx={{
-            width: 300,
+            width: 400,
           }}
           onChange={handleID}
         />
+        {idError && <p style={{color: 'red'}}>{idError}</p>}
       </div>
       <div>
         <TextField
           id="standard-basic"
           label="Message"
-          variant="standard"
+          variant="outlined"
           required
+          multiline
+          rows={4}
           sx={{
-            width: 300,
+            marginTop: 2,
+            width: 400,
           }}
           onChange={handleMsg}
         />
+         {msgError && <p style={{color: 'red'}}>{msgError}</p>}
       </div>
       <div className="btn">
-        <Button variant="contained" type="submit">Submit</Button>
+        <Button variant="contained" type="submit" disabled={idError!==null || msgError!==null}>Submit</Button>
       </div>
       </form>
     </div>
